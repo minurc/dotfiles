@@ -15,11 +15,17 @@ filetype off
     Plugin 'gmarik/vundle'
     "Add your bundles here
     Plugin 'altercation/vim-colors-solarized' "T-H-E colorscheme
-    Plugin 'https://github.com/tpope/vim-fugitive' "So awesome, it should be illegal 
+    Plugin 'https://github.com/tpope/vim-fugitive' "So awesome, it should be illegal
     Plugin 'bling/vim-airline'
     Plugin 'bling/vim-bufferline'
     Plugin 'toyamarinyon/vim-swift.git'
     Plugin 'https://github.com/fatih/vim-go.git'
+    Plugin 'git://github.com/davidhalter/jedi-vim.git'
+    Plugin 'https://github.com/scrooloose/nerdtree.git'
+    Plugin 'https://github.com/elentok/plaintasks.vim.git'
+    Plugin 'https://github.com/PotatoesMaster/i3-vim-syntax.git'
+    Plugin 'https://github.com/vimoutliner/vimoutliner.git'        " Copy vimoutlinerrc to ~/.vimoutlinerrc (and customize)
+    Plugin 'https://github.com/vim-scripts/xoria256.vim.git'       " Copy xoria256.vim to colors in ~/.vim
 
     "...All your other bundles...
 
@@ -37,11 +43,14 @@ filetype plugin indent on    " required
 " Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
 
-noremap j h
-noremap k j
-noremap l k
+
+" Remap default 'hjkl' home row to 'jkl;'
 noremap ; l
+noremap l k
+noremap k j
+noremap j h
 noremap h <NOP>
+
 
 
 
@@ -119,6 +128,7 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 " wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
 set t_Co=256
 color wombat256mod
+" color xoria256
 
 
 " Enable syntax highlighting
@@ -173,6 +183,49 @@ set noswapfile
 " Now you can install any plugin into a .vim/bundle/plugin-name/ folder
 
 
+
+" ===
+" TODO implementation [ plugin ]
+"
+" git clone https://github.com/elentok/plaintasks.vim.git
+"
+" Usage:
+"     + - create new task
+"     = - toggle complete
+"     <C-M> - toggle cancel
+"     - - archive tasks
+"       --<space> - insert a separator line
+
+
+" ===
+"
+" AsciiDoc support
+"
+" Show tabs and trailing characters.
+" "set listchars=tab:»·,trail:·,eol:¬
+set listchars=tab:»·,trail:·
+set list
+
+" Reformat paragraphs and list.
+nnoremap <Leader>r gq}
+
+" Delete trailing white space and Dos-returns and to expand tabs to spaces.
+nnoremap <Leader>t :set et<CR>:retab!<CR>:%s/[\r \t]\+$//<CR>
+
+autocmd BufRead,BufNewFile *.ad,*.adoc,*.asciidoc
+        \ setlocal autoindent expandtab tabstop=8 softtabstop=2 shiftwidth=2 filetype=asciidoc
+        \ textwidth=70 wrap formatoptions=tcqn
+        \ formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\\|^\\s*<\\d\\+>\\s\\+\\\\|^\\s*[a-zA-Z.]\\.\\s\\+\\\\|^\\s*[ivxIVX]\\+\\.\\s\\+
+        \ comments=s1:/*,ex:*/,://,b:#,:%,:XCOMM,fb:-,fb:*,fb:+,fb:.,fb:>
+
+
+au! BufRead,BufNewFile *.otl    setfiletype votl
+
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+
+
+
 " ============================================================================
 " Python IDE Setup
 " ============================================================================
@@ -190,10 +243,10 @@ set laststatus=2
 " Settings for ctrlp
 " cd ~/.vim/bundle
 " git clone https://github.com/kien/ctrlp.vim.git
-"" let g:ctrlp_max_height = 30
-"" set wildignore+=*.pyc
-"" set wildignore+=*_build/*
-"" set wildignore+=*/coverage/*
+let g:ctrlp_max_height = 30
+set wildignore+=*.pyc
+set wildignore+=*_build/*
+set wildignore+=*/coverage/*
 
 
 " Settings for python-mode
@@ -214,10 +267,11 @@ set laststatus=2
 " Settings for jedi-vim
 " cd ~/.vim/bundle
 " git clone git://github.com/davidhalter/jedi-vim.git
-"" let g:jedi#usages_command = "<leader>z"
-"" let g:jedi#popup_on_dot = 0
-"" let g:jedi#popup_select_first = 0
-"" map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
+let g:jedi#usages_command = "<Leader>z"
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 0
+let g:pymode_rope = 0
+map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " Better navigating through omnicomplete option list
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
