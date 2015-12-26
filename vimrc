@@ -15,7 +15,7 @@ filetype off
     Plugin 'gmarik/vundle'
     "Add your bundles here
     Plugin 'altercation/vim-colors-solarized' "T-H-E colorscheme
-    Plugin 'https://github.com/tpope/vim-fugitive' "So awesome, it should be illegal
+    Plugin 'https://github.com/tpope/vim-fugitive' "So awesome, it should be illegal 
     Plugin 'bling/vim-airline'
     Plugin 'bling/vim-bufferline'
     Plugin 'toyamarinyon/vim-swift.git'
@@ -24,8 +24,11 @@ filetype off
     Plugin 'https://github.com/scrooloose/nerdtree.git'
     Plugin 'https://github.com/elentok/plaintasks.vim.git'
     Plugin 'https://github.com/PotatoesMaster/i3-vim-syntax.git'
-    Plugin 'https://github.com/vimoutliner/vimoutliner.git'        " Copy vimoutlinerrc to ~/.vimoutlinerrc (and customize)
+    Plugin 'https://github.com/vimoutliner/vimoutliner.git'        " Change vimoutlinerrc to desired state (inside plugin directory)
     Plugin 'https://github.com/vim-scripts/xoria256.vim.git'       " Copy xoria256.vim to colors in ~/.vim
+
+    Plugin 'Valloric/YouCompleteMe' " YCM support
+
 
     "...All your other bundles...
 
@@ -45,13 +48,16 @@ autocmd! bufwritepost .vimrc source %
 
 
 " Remap default 'hjkl' home row to 'jkl;'
-noremap ; l
-noremap l k
-noremap k j
-noremap j h
-noremap h <NOP>
+" noremap ; l
+" noremap l k
+" noremap k j
+" noremap j h
+" noremap h <NOP>
 
-
+" map j <Left>
+" map ; <Right>
+" map k <Down>
+" map l <Up>
 
 
 " Better copy & paste
@@ -94,11 +100,11 @@ noremap <Leader>E :qa!<CR>   " Quit all windows
 
 " bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
 " Every unnecessary keystroke that can be saved is good for your health :)
-map <C-;> <NOP>
-noremap <C-k> <c-w>j
-noremap <C-l> <c-w>k
-noremap <C-;> <c-w>l
-noremap <C-j> <c-w>h
+" map <C-;> <NOP>
+noremap <C-j> <c-w>j
+noremap <C-k> <c-w>k
+noremap <C-l> <c-w>l
+noremap <C-h> <c-w>h
 
 
 " easier moving between tabs
@@ -224,6 +230,14 @@ au! BufRead,BufNewFile *.otl    setfiletype votl
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 
+"
+" Go Programming language
+"
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_struct = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_build_constraints = 1
 
 
 " ============================================================================
@@ -268,7 +282,7 @@ set wildignore+=*/coverage/*
 " cd ~/.vim/bundle
 " git clone git://github.com/davidhalter/jedi-vim.git
 let g:jedi#usages_command = "<Leader>z"
-let g:jedi#popup_on_dot = 0
+let g:jedi#popup_on_dot = 1
 let g:jedi#popup_select_first = 0
 let g:pymode_rope = 0
 map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
