@@ -1,0 +1,100 @@
+! vim: set filetype=xdefaults :
+
+URxvt.perl-ext-common : default,keyboard-select,url-select,clipboard
+
+URxvt.keysym.M-x           : perl:keyboard-select:activate
+URxvt.keysym.M-u           : perl:url-select:select_next
+URxvt.keysym.M-c           : perl:clipboard:copy
+URxvt.keysym.M-v           : perl:clipboard:paste
+URxvt.keysym.M-s           : perl:keyboard-select:search
+URxvt.keysym.M-C-v         : perl:clipboard:paste_escaped
+URxvt.url-select.launcher  : firefox
+URxvt.url-select.autocopy  : true
+URxvt.url-select.underline : true
+
+! URxvt*keysym.Home: \033[1~
+! URxvt*keysym.End: \033[4~
+
+URxvt.geometry  : 120x40
+URxvt*imLocale:           en_US.UTF-8
+
+! URxvt*font      : xft:Monaco for Powerline:regular:size=10
+URxvt*font:                 xft:Monaco for Powerline:regular:size=10
+URxvt*imFont:               xft:Monaco for Powerline:regular:size=10
+URxvt*boldFont:             xft:Monaco for Powerline:bold:size=10
+URxvt*italicFont:           xft:Monaco for Powerline:italic:size=10
+URxvt*boldItalicFont:       xft:Monaco for Powerline:bold:italic:size=10
+! URxvt.font        : xft:Inconsolata:pixelsize=13
+! URxvt.font:     xft:bitstream vera sans mono:size=10
+! URxvt.boldFont: xft:bitstream vera sans mono:bold:size=10
+
+! Using XLFD (created via e.g. xfontsel)
+! URxvt*font:           -misc-fixed-medium-r-semicondensed-*-22-90-120-*-c-60-iso8859-1
+! ! Using Xft
+! URxvt*font:           xft:Inconsolata:size=8
+URxvt.letterSpace : 0
+URxvt.termName    : rxvt-256color
+URxvt.iso14755    : false
+
+URxvt.urgentOnBell: true
+
+URxvt.saveLines   : 12000
+URxvt.scrollBar   : false
+URxvt.scrollstyle : rxvt
+
+!XFT
+Xft.lcdfilter : lcddefault
+Xft.hintstyle : hintslight
+Xft.hinting   : full
+Xft.dpi       : 96
+Xft.antialias : true
+Xft.rgba      : rgb
+
+!Solarized + tangerine + random colours
+URxvt.cursorColor            : #93A1A1
+URxvt*cursorBlink:	true
+
+URxvt.pointerColorBackground : #586E75
+URxvt.urlLuncher:     /usr/bin/iceweasel
+URxvt.pointerColorForeground : #93A1A1
+
+URxvt.Depth : 32
+URxvt.background : #404040
+URxvt.foreground : #F6F3E8
+URxvt*.transparent  : True
+URxvt*.shading: 20
+
+URxvt.colorBD : #FFFFFF
+URxvt.colorUL : #CCCC66
+
+! black 
+URxvt.color0  : #2E3436
+URxvt.color8  : #555753
+
+! red
+URxvt.color1  : #9e1828
+URxvt.color9  : #cf6171
+
+! green
+URxvt.color2  : #aece92
+URxvt.color10 : #c5f779
+
+! yellow
+URxvt.color3  : #968a38
+URxvt.color11 : #fff796
+
+! blue
+URxvt.color4  : #414171
+URxvt.color12 : #4186be
+
+! magenta
+URxvt.color5  : #963c59
+URxvt.color13 : #cf9ebe
+
+! cyan
+URxvt.color6  : #418179
+URxvt.color14 : #71bebe
+
+! white
+URxvt.color7  : #bebebe
+URxvt.color15 : #ffffff
