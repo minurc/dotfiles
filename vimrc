@@ -1,33 +1,35 @@
 " Setting up Vundle - the vim plugin bundler
     let iCanHazVundle=1
-    let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-    if !filereadable(vundle_readme)
-        echo "Installing Vundle.."
+    let plug_readme=expand('~/.vim/autoload/plug.vim')
+    if !filereadable(plug_readme)
+        echo "Installing Plug.."
         echo ""
-        silent !mkdir -p ~/.vim/bundle
-        silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         let iCanHazVundle=0
     endif
 set nocompatible
-filetype off
-    set rtp+=~/.vim/bundle/vundle/
-    call vundle#begin()
-    Plugin 'gmarik/vundle'
-    "Add your bundles here
-    Plugin 'altercation/vim-colors-solarized' "T-H-E colorscheme
-    Plugin 'https://github.com/tpope/vim-fugitive' "So awesome, it should be illegal 
-    Plugin 'bling/vim-airline'
-    Plugin 'bling/vim-bufferline'
-    Plugin 'toyamarinyon/vim-swift.git'
-    Plugin 'https://github.com/fatih/vim-go.git'
-    Plugin 'git://github.com/davidhalter/jedi-vim.git'
-    Plugin 'https://github.com/scrooloose/nerdtree.git'
-    Plugin 'https://github.com/elentok/plaintasks.vim.git'
-    Plugin 'https://github.com/PotatoesMaster/i3-vim-syntax.git'
-    Plugin 'https://github.com/vimoutliner/vimoutliner.git'        " Change vimoutlinerrc to desired state (inside plugin directory)
-    Plugin 'https://github.com/vim-scripts/xoria256.vim.git'       " Copy xoria256.vim to colors in ~/.vim
+set showcmd
 
-    Plugin 'Valloric/YouCompleteMe' " YCM support
+set path+=**
+set wildmenu
+
+
+filetype off
+    set rtp+=~/.vim/plugged/
+    call plug#begin()
+    "Add your bundles here
+    Plug 'altercation/vim-colors-solarized' "T-H-E colorscheme
+    Plug 'https://github.com/tpope/vim-fugitive' "So awesome, it should be illegal 
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'bling/vim-bufferline'
+    Plug 'https://github.com/fatih/vim-go.git'
+    Plug 'https://github.com/scrooloose/nerdtree.git'
+    Plug 'https://github.com/elentok/plaintasks.vim.git'
+    Plug 'https://github.com/PotatoesMaster/i3-vim-syntax.git'
+    Plug 'https://github.com/vimoutliner/vimoutliner.git'        " Change vimoutlinerrc to desired state (inside plugin directory)
+    Plug 'https://github.com/vim-scripts/xoria256.vim.git'       " Copy xoria256.vim to colors in ~/.vim
+
 
 
     "...All your other bundles...
@@ -35,10 +37,10 @@ filetype off
     if iCanHazVundle == 0
         echo "Installing Bundles, please ignore key map error messages"
         echo ""
-        :PluginInstall
+        :PlugInstall
     endif
 " Setting up Vundle - the vim plugin bundler end
-call vundle#end()            " required
+call plug#end()            " required
 
 filetype plugin indent on    " required
 
@@ -132,9 +134,18 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 " Color scheme
 " mkdir -p ~/.vim/colors && cd ~/.vim/colors
 " wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
-set t_Co=256
-color wombat256mod
-" color xoria256
+let flColor=expand('~/.vim/colors/wombat256mod.vim')
+if !filereadable(flColor)
+    echo "Installing color scheme.."
+    echo ""
+    silent !curl -fLo ~/.vim/colors/wombat256mod.vim --create-dirs http://www.vim.org/scripts/download_script.php\?src_id=13400
+endif
+
+if !filereadable(flColor)
+    set t_Co=256
+    color wombat256mod
+    " color xoria256
+endif
 
 
 " Enable syntax highlighting
@@ -209,8 +220,8 @@ set noswapfile
 "
 " Show tabs and trailing characters.
 " "set listchars=tab:»·,trail:·,eol:¬
-set listchars=tab:»·,trail:·
-set list
+" set listchars=tab:»·,trail:·
+" set list
 
 " Reformat paragraphs and list.
 nnoremap <Leader>r gq}
@@ -238,6 +249,7 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " let g:go_highlight_struct = 1
 " let g:go_highlight_operators = 1
 " let g:go_highlight_build_constraints = 1
+let g:go_highlight_types = 1
 
 
 " ============================================================================
@@ -250,9 +262,43 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " git clone git://github.com/Lokaltog/vim-powerline.git
 set laststatus=2
 
+" air-line
+let g:airline_powerline_fonts = 0
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
 
 " Airline configuration
 " let g:airline_powerline_fonts = 1
+" let g:Powerline_symbols='unicode'
+
+"if !exists('g:airline_symbols')
+"      let g:airline_symbols = {}
+"endif
 
 " Settings for ctrlp
 " cd ~/.vim/bundle
