@@ -24,7 +24,7 @@ filetype off
     Plug 'vim-airline/vim-airline-themes'
     Plug 'bling/vim-bufferline'
     Plug 'https://github.com/fatih/vim-go.git'
-    Plug 'https://github.com/scrooloose/nerdtree.git'
+"    Plug 'https://github.com/scrooloose/nerdtree.git'
     Plug 'https://github.com/elentok/plaintasks.vim.git'
     Plug 'https://github.com/PotatoesMaster/i3-vim-syntax.git'
     Plug 'https://github.com/vimoutliner/vimoutliner.git'        " Change vimoutlinerrc to desired state (inside plugin directory)
@@ -49,17 +49,11 @@ filetype plugin indent on    " required
 autocmd! bufwritepost .vimrc source %
 
 
-" Remap default 'hjkl' home row to 'jkl;'
-" noremap ; l
-" noremap l k
-" noremap k j
-" noremap j h
-" noremap h <NOP>
+" Show whitespace
+" MUST be inserted BEFORE the colorscheme command
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+au InsertLeave * match ExtraWhitespace /\s\+$/
 
-" map j <Left>
-" map ; <Right>
-" map k <Down>
-" map l <Up>
 
 
 " Better copy & paste
@@ -124,11 +118,6 @@ vnoremap <Leader>s :sort<CR>
 vnoremap < <gv  " better indentation
 vnoremap > >gv  " better indentation
 
-
-" Show whitespace
-" MUST be inserted BEFORE the colorscheme command
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/
 
 
 " Color scheme
@@ -263,7 +252,7 @@ let g:go_highlight_types = 1
 set laststatus=2
 
 " air-line
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -291,6 +280,7 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+let g:airline_symbols.linenr = '¶'
 
 " Airline configuration
 " let g:airline_powerline_fonts = 1

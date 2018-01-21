@@ -1,47 +1,71 @@
 ! vim: set filetype=xdefaults :
+!
+! URxvt.perl-lib: ~/.urxvt/lib/
 
-URxvt.perl-ext-common : default,keyboard-select,url-select,clipboard
+URxvt.perl-ext-common : default,selection-to-clipboard,keyboard-select
+! keyboard-select,url-select,clipboard
 
-URxvt.keysym.M-x           : perl:keyboard-select:activate
-URxvt.keysym.M-u           : perl:url-select:select_next
-URxvt.keysym.M-c           : perl:clipboard:copy
-URxvt.keysym.M-v           : perl:clipboard:paste
-URxvt.keysym.M-s           : perl:keyboard-select:search
-URxvt.keysym.M-C-v         : perl:clipboard:paste_escaped
-URxvt.url-select.launcher  : firefox
-URxvt.url-select.autocopy  : true
-URxvt.url-select.underline : true
+URxvt.keysym.M-Escape        : perl:keyboard-select:activate
+! URxvt.keysym.M-x           : perl:keyboard-select:activate
+! URxvt.keysym.M-u           : perl:url-select:select_next
+! URxvt.keysym.M-c           : perl:clipboard:copy
+! URxvt.keysym.M-v           : perl:clipboard:paste
+! URxvt.keysym.M-s           : perl:keyboard-select:search
+! URxvt.keysym.M-C-v         : perl:clipboard:paste_escaped
+! URxvt.url-select.launcher  : firefox
+! URxvt.url-select.autocopy  : true
+! URxvt.url-select.underline : true
 
-! URxvt*keysym.Home: \033[1~
-! URxvt*keysym.End: \033[4~
+URxvt*keysym.Home: \033[1~
+URxvt*keysym.End: \033[4~
 
-URxvt.geometry  : 120x40
+! URxvt.geometry  : 120x40
+! URxvt*imLocale:           en_US.UTF-8
 URxvt*imLocale:           en_US.UTF-8
+! URxvt*imLocale:           de_DE.UTF-8
 
-! URxvt*font      : xft:Monaco for Powerline:regular:size=10
-URxvt*font:                 xft:Monaco for Powerline:regular:size=10
-URxvt*imFont:               xft:Monaco for Powerline:regular:size=10
-URxvt*boldFont:             xft:Monaco for Powerline:bold:size=10
-URxvt*italicFont:           xft:Monaco for Powerline:italic:size=10
-URxvt*boldItalicFont:       xft:Monaco for Powerline:bold:italic:size=10
-! URxvt.font        : xft:Inconsolata:pixelsize=13
-! URxvt.font:     xft:bitstream vera sans mono:size=10
-! URxvt.boldFont: xft:bitstream vera sans mono:bold:size=10
+! URxvt.font: xft:Ubuntu Mono derivative Powerline:size=9.14,xft:monospace,xft:Symbola
+! URxvt.font: xft:UbuntuMono:size=12,xft:DejaVu Sans Mono,xft:monospace,xft:Symbola,xft:FontAwesome:size=8
+URxvt.font: xft:DejaVu Sans Mono for Powerline:size=11,xft:monospace,xft:Symbola,xft:FontAwesome:size=8
 
-! Using XLFD (created via e.g. xfontsel)
-! URxvt*font:           -misc-fixed-medium-r-semicondensed-*-22-90-120-*-c-60-iso8859-1
-! ! Using Xft
-! URxvt*font:           xft:Inconsolata:size=8
-URxvt.letterSpace : 0
-URxvt.termName    : rxvt-256color
-URxvt.iso14755    : false
+! URxvt*font:                 xft:Droid Sans Mono for Powerline:size=10
+!  URxvt.font:     xft:Ubuntu Mono derivative Powerline:size=12
+!  URxvt*font:                 xft:Droid Sans Mono Slashed for Powerline:pixelsize=12:antialias=true:hinting=true:autohint=true 
+!  URxvt*font      : xft:Monaco for Powerline:regular:size=10
+!  URxvt*font:                 xft:Monaco for Powerline:regular:size=10
+!  URxvt*font:                 xft:DejaVu Sans Mono for Powerline:regular:size=10
+!  URxvt.font:                   xft:Droid Sans Mono for Powerline Plus Nerd File Types Mono:pixelsize=12:antialias=true:hinting=true
+!  URxvt*font:                 xft:Monaco for Powerline:regular:size=10,xft:FontAwesome:size=9,xft:Icons:size:9,xft:DejaVu Sans Mono for Powerline:size=11
+!  URxvt*font:                 xft:Monaco for Powerline:regular:size=10, xft:FontAwesome:size=9, xft:Icons:size:9
+!  URxvt*font:                 xft:Monaco for Powerline:regular:size=10
+!  URxvt*imFont:               xft:Monaco for Powerline:regular:size=10
+!  URxvt*boldFont:             xft:Monaco for Powerline:bold:size=10
+!  URxvt*italicFont:           xft:Monaco for Powerline:italic:size=10
+!  URxvt*boldItalicFont:       xft:Monaco for Powerline:bold:italic:size=10
+!  URxvt.font        : xft:Inconsolata:pixelsize=13
+!  URxvt.font:     xft:bitstream vera sans mono:size=10
+!  URxvt.boldFont: xft:bitstream vera sans mono:bold:size=10
+!  URxvt*font:           xft:Inconsolata:size=10
+!  
+!  
+!  ! Using XLFD (created via e.g. xfontsel)
+!  ! URxvt*font:           -misc-fixed-medium-r-semicondensed-*-22-90-120-*-c-60-iso8859-1
+!  ! ! Using Xft
+!  ! URxvt*font:           xft:Inconsolata:size=8
+!
+URxvt.letterSpace : -1
 
-URxvt.urgentOnBell: true
+!  ! URxvt.termName    : rxvt-256color
+!  ! URxvt.termName    : xterm
+!  ! URxvt.iso14755    : false
+!  
+!  URxvt.urgentOnBell: true
+!  
+URxvt.saveLines   : 30000
 
-URxvt.saveLines   : 12000
 URxvt.scrollBar   : false
 URxvt.scrollstyle : rxvt
-
+!  
 !XFT
 Xft.lcdfilter : lcddefault
 Xft.hintstyle : hintslight
@@ -49,7 +73,7 @@ Xft.hinting   : full
 Xft.dpi       : 96
 Xft.antialias : true
 Xft.rgba      : rgb
-
+!  
 !Solarized + tangerine + random colours
 URxvt.cursorColor            : #93A1A1
 URxvt*cursorBlink:	true
@@ -57,7 +81,7 @@ URxvt*cursorBlink:	true
 URxvt.pointerColorBackground : #586E75
 URxvt.urlLuncher:     /usr/bin/iceweasel
 URxvt.pointerColorForeground : #93A1A1
-
+!  
 URxvt.Depth : 32
 URxvt.background : #404040
 URxvt.foreground : #F6F3E8
