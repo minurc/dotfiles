@@ -1,13 +1,13 @@
 #!/bin/sh
 
-pwd=`pwd`
+# pwd=`pwd`
 
-mv vimrc ~/.vimrc
+cp vimrc ~/.vimrc
 
-mkdir -p ~/.vim/colors
-cd ~/.vim/colors
-wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
-cd $pwd
+# mkdir -p ~/.vim/colors
+# cd ~/.vim/colors
+# wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
+# cd $pwd
 
 
 

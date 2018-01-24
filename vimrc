@@ -1,46 +1,68 @@
-" Setting up Vundle - the vim plugin bundler
-    let iCanHazVundle=1
-    let plug_readme=expand('~/.vim/autoload/plug.vim')
-    if !filereadable(plug_readme)
-        echo "Installing Plug.."
-        echo ""
-        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        let iCanHazVundle=0
-    endif
+
+""--------------
+"   Plugin manager
+""--------------
+
+" vim-plug
+let PlugInstalledIs=1
+let plug_readme=expand('~/.vim/autoload/plug.vim')
+if !filereadable(plug_readme)
+    echo "Installing Plug.."
+    echo ""
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    let PlugInstalledIs=0
+endif
+
+filetype off
+set rtp+=~/.vim/plugged/
+call plug#begin()
+Plug 'https://github.com/tpope/vim-fugitive' 
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'bling/vim-bufferline'
+" Plug 'https://github.com/fatih/vim-go.git', { 'do': ':GoInstallBinaries' }
+Plug 'https://github.com/fatih/vim-go.git' ", { 'do': ':GoInstallBinaries' }
+Plug 'https://github.com/scrooloose/nerdtree.git'
+augroup nerd_loader
+  autocmd!
+  autocmd VimEnter * silent! autocmd! FileExplorer
+  autocmd BufEnter,BufNew *
+        \  if isdirectory(expand('<amatch>'))
+        \|   call plug#load('nerdtree')
+        \|   execute 'autocmd! nerd_loader'
+        \| endif
+augroup END
+
+Plug 'https://github.com/PotatoesMaster/i3-vim-syntax.git'
+Plug 'https://github.com/vimoutliner/vimoutliner.git'        " Change vimoutlinerrc to desired state (inside plugin directory)
+Plug 'https://github.com/elentok/plaintasks.vim.git'
+
+Plug 'https://github.com/vim-scripts/xoria256.vim.git'       " Copy xoria256.vim to colors in ~/.vim
+Plug 'altercation/vim-colors-solarized' "T-H-E colorscheme
+
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/fzf', { 'do': './install --all' }
+Plug 'junegunn/fzf.vim',
+
+
+if PlugInstalledIs == 0
+    echo "Installing Bundles, please ignore key map error messages"
+    echo ""
+    :PlugInstall
+endif
+call plug#end()
+
+
+" ----------------------------------------------------------------------------
+"   Basic setup
+" ----------------------------------------------------------------------------
+
 set nocompatible
 set showcmd
 
 set path+=**
 set wildmenu
 
-
-filetype off
-    set rtp+=~/.vim/plugged/
-    call plug#begin()
-    "Add your bundles here
-    Plug 'altercation/vim-colors-solarized' "T-H-E colorscheme
-    Plug 'https://github.com/tpope/vim-fugitive' "So awesome, it should be illegal 
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-    Plug 'bling/vim-bufferline'
-    Plug 'https://github.com/fatih/vim-go.git'
-"    Plug 'https://github.com/scrooloose/nerdtree.git'
-    Plug 'https://github.com/elentok/plaintasks.vim.git'
-    Plug 'https://github.com/PotatoesMaster/i3-vim-syntax.git'
-    Plug 'https://github.com/vimoutliner/vimoutliner.git'        " Change vimoutlinerrc to desired state (inside plugin directory)
-    Plug 'https://github.com/vim-scripts/xoria256.vim.git'       " Copy xoria256.vim to colors in ~/.vim
-
-
-
-    "...All your other bundles...
-
-    if iCanHazVundle == 0
-        echo "Installing Bundles, please ignore key map error messages"
-        echo ""
-        :PlugInstall
-    endif
-" Setting up Vundle - the vim plugin bundler end
-call plug#end()            " required
 
 filetype plugin indent on    " required
 
@@ -51,8 +73,8 @@ autocmd! bufwritepost .vimrc source %
 
 " Show whitespace
 " MUST be inserted BEFORE the colorscheme command
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/
+" autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+" au InsertLeave * match ExtraWhitespace /\s\+$/
 
 
 
@@ -74,6 +96,12 @@ set bs=2     " make backspace behave like normal again
 " it is next to ``m`` and ``n`` which I use for navigating between tabs.
 let mapleader = ","
 
+" ----------------------------------------------------------------------------
+" Mappings
+" ----------------------------------------------------------------------------
+
+" qq to record, Q to replay
+nnoremap Q @q
 
 " Bind nohl
 " Removes highlight of your last search
@@ -119,6 +147,24 @@ vnoremap < <gv  " better indentation
 vnoremap > >gv  " better indentation
 
 
+" ----------------------------------------------------------------------------
+" Buffers
+" ----------------------------------------------------------------------------
+nnoremap ]b :bnext<cr>
+nnoremap [b :bprev<cr>
+
+" ----------------------------------------------------------------------------
+" Tabs
+" ----------------------------------------------------------------------------
+nnoremap ]t :tabn<cr>
+nnoremap [t :tabp<cr>
+
+" ----------------------------------------------------------------------------
+" <tab> / <s-tab> | Circular windows navigation
+" ----------------------------------------------------------------------------
+nnoremap <tab>   <c-w>w
+nnoremap <S-tab> <c-w>W
+
 
 " Color scheme
 " mkdir -p ~/.vim/colors && cd ~/.vim/colors
@@ -144,6 +190,7 @@ syntax on
 
 " Showing line numbers and length
 set number  " show line numbers
+set relativenumber
 set tw=79   " width of document (used by gd)
 set nowrap  " don't automatically wrap on load
 set fo-=t   " don't automatically wrap text when typing
@@ -183,11 +230,58 @@ set nowritebackup
 set noswapfile
 
 
-" Setup Pathogen to manage your plugins
-" mkdir -p ~/.vim/autoload ~/.vim/bundle
-" curl -so ~/.vim/autoload/pathogen.vim https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
-" Now you can install any plugin into a .vim/bundle/plugin-name/ folder
+set laststatus=2
 
+
+"
+" fzf
+"
+
+" Hide statusline of terminal buffer
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" nnoremap <silent> <Leader><Leader> :Files<CR>
+nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
+nnoremap <silent> <Leader>C        :Colors<CR>
+nnoremap <silent> <Leader><Enter>  :Buffers<CR>
+nnoremap <silent> <Leader>l        :Lines<CR>
+nnoremap <silent> <Leader>ag       :Ag <C-R><C-W><CR>
+nnoremap <silent> <Leader>AG       :Ag <C-R><C-A><CR>
+xnoremap <silent> <Leader>ag       y:Ag <C-R>"<CR>
+nnoremap <silent> <Leader>`        :Marks<CR>
+" nnoremap <silent> q: :History:<CR>
+" nnoremap <silent> q/ :History/<CR>
+
+inoremap <expr> <c-x><c-t> fzf#complete('tmuxwords.rb --all-but-current --scroll 500 --min 5')
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+inoremap <expr> <c-x><c-d> fzf#vim#complete#path('blsd')
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 
 
 " ===
@@ -203,10 +297,10 @@ set noswapfile
 "       --<space> - insert a separator line
 
 
-" ===
 "
 " AsciiDoc support
 "
+
 " Show tabs and trailing characters.
 " "set listchars=tab:»·,trail:·,eol:¬
 " set listchars=tab:»·,trail:·
@@ -218,11 +312,14 @@ nnoremap <Leader>r gq}
 " Delete trailing white space and Dos-returns and to expand tabs to spaces.
 nnoremap <Leader>t :set et<CR>:retab!<CR>:%s/[\r \t]\+$//<CR>
 
+
 autocmd BufRead,BufNewFile *.ad,*.adoc,*.asciidoc
         \ setlocal autoindent expandtab tabstop=8 softtabstop=2 shiftwidth=2 filetype=asciidoc
         \ textwidth=70 wrap formatoptions=tcqn
         \ formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\\|^\\s*<\\d\\+>\\s\\+\\\\|^\\s*[a-zA-Z.]\\.\\s\\+\\\\|^\\s*[ivxIVX]\\+\\.\\s\\+
         \ comments=s1:/*,ex:*/,://,b:#,:%,:XCOMM,fb:-,fb:*,fb:+,fb:.,fb:>
+
+autocmd FileType asciidoc noremap <F5>  :! adocrender %<CR>
 
 
 au! BufRead,BufNewFile *.otl    setfiletype votl
@@ -241,15 +338,9 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:go_highlight_types = 1
 
 
-" ============================================================================
-" Python IDE Setup
-" ============================================================================
-
-
-" Settings for vim-powerline
-" cd ~/.vim/bundle
-" git clone git://github.com/Lokaltog/vim-powerline.git
-set laststatus=2
+"
+" vim-airline
+"
 
 " air-line
 let g:airline_powerline_fonts = 1
@@ -290,58 +381,5 @@ let g:airline_symbols.linenr = '¶'
 "      let g:airline_symbols = {}
 "endif
 
-" Settings for ctrlp
-" cd ~/.vim/bundle
-" git clone https://github.com/kien/ctrlp.vim.git
-let g:ctrlp_max_height = 30
-set wildignore+=*.pyc
-set wildignore+=*_build/*
-set wildignore+=*/coverage/*
 
 
-" Settings for python-mode
-" Note: I'm no longer using this. Leave this commented out
-" and uncomment the part about jedi-vim instead
-" cd ~/.vim/bundle
-" git clone https://github.com/klen/python-mode
-"" map <Leader>g :call RopeGotoDefinition()<CR>
-"" let ropevim_enable_shortcuts = 1
-"" let g:pymode_rope_goto_def_newwin = "vnew"
-"" let g:pymode_rope_extended_complete = 1
-"" let g:pymode_breakpoint = 0
-"" let g:pymode_syntax = 1
-"" let g:pymode_syntax_builtin_objs = 0
-"" let g:pymode_syntax_builtin_funcs = 0
-"" map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
-
-" Settings for jedi-vim
-" cd ~/.vim/bundle
-" git clone git://github.com/davidhalter/jedi-vim.git
-let g:jedi#usages_command = "<Leader>z"
-let g:jedi#popup_on_dot = 1
-let g:jedi#popup_select_first = 0
-let g:pymode_rope = 0
-map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
-
-" Better navigating through omnicomplete option list
-" See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
-"" set completeopt=longest,menuone
-"" function! OmniPopup(action)
-""     if pumvisible()
-""         if a:action == 'j'
-""             return "\<C-N>"
-""         elseif a:action == 'k'
-""             return "\<C-P>"
-""         endif
-""     endif
-""     return a:action
-"" endfunction
-
-"" inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
-"" inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
-
-
-" Python folding
-" mkdir -p ~/.vim/ftplugin
-" wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
-"" set nofoldenable
