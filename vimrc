@@ -1,7 +1,18 @@
+""""""""""
+"
+" vimrc file
+"
+"
+" [1] https://github.com/fatih/dotfiles/blob/master/vimrc
+" [2] https://github.com/amix/vimrc
+" [3] https://github.com/junegunn/dotfiles/blob/master/vimrc
+"
+"
 
-""--------------
+
+" ----------------------------------------------------------------------------
 "   Plugin manager
-""--------------
+" ----------------------------------------------------------------------------
 
 " vim-plug
 let PlugInstalledIs=1
@@ -132,11 +143,6 @@ noremap <C-l> <c-w>l
 noremap <C-h> <c-w>h
 
 
-" easier moving between tabs
-map <Leader>n <esc>:tabprevious<CR>
-map <Leader>m <esc>:tabnext<CR>
-
-
 " map sort function to a key
 vnoremap <Leader>s :sort<CR>
 
@@ -251,10 +257,11 @@ set noswapfile
 
 set laststatus=2
 
+" ----- NERD Tree ----- "
+nnoremap <F10> :NERDTreeToggle<cr>
+nnoremap <Leader>f  :NERDTreeFind<cr>
 
-"
-" fzf
-"
+" ----- vim-fzf ----- "
 
 " Hide statusline of terminal buffer
 autocmd! FileType fzf
@@ -326,10 +333,10 @@ omap <leader><tab> <plug>(fzf-maps-o)
 " set list
 
 " Reformat paragraphs and list.
-nnoremap <Leader>r gq}
+autocmd FileType asciidoc nnoremap <Leader>r gq}
 
 " Delete trailing white space and Dos-returns and to expand tabs to spaces.
-nnoremap <Leader>t :set et<CR>:retab!<CR>:%s/[\r \t]\+$//<CR>
+autocmd FileType asciidoc nnoremap <Leader>t :set et<CR>:retab!<CR>:%s/[\r \t]\+$//<CR>
 
 
 autocmd BufRead,BufNewFile *.ad,*.adoc,*.asciidoc
