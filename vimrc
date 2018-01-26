@@ -389,8 +389,6 @@ let g:go_highlight_format_strings = 0
 let g:go_modifytags_transform = 'camelcase'
 let g:go_fold_enable = []
 
-nmap <C-g> :GoDecls<cr>
-imap <C-g> <esc>:<C-u>GoDecls<cr>
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -405,6 +403,9 @@ endfunction
 augroup go
   autocmd!
 
+
+  autocmd FileType go nmap <C-g> :GoDecls<cr>
+  autocmd FileType go imap <C-g> <esc>:<C-u>GoDecls<cr>
 
   autocmd FileType go nmap <silent> <Leader>v <Plug>(go-def-vertical)
   autocmd FileType go nmap <silent> <Leader>s <Plug>(go-def-split)
