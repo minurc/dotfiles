@@ -55,6 +55,12 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim',
 
+if v:version >= 703
+  Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+endif
+
+Plug 'SirVer/ultisnips',
+
 
 if PlugInstalledIs == 0
     echo "Installing Bundles, please ignore key map error messages"
@@ -187,8 +193,8 @@ nnoremap [t :tabp<cr>
 " ----------------------------------------------------------------------------
 " <tab> / <s-tab> | Circular windows navigation
 " ----------------------------------------------------------------------------
-nnoremap <tab>   <c-w>w
-nnoremap <S-tab> <c-w>W
+" nnoremap <tab>   <c-w>w
+" nnoremap <S-tab> <c-w>W
 
 
 " Color scheme
@@ -258,8 +264,18 @@ set noswapfile
 set laststatus=2
 
 " ----- NERD Tree ----- "
+" <F10>
 nnoremap <F10> :NERDTreeToggle<cr>
 nnoremap <Leader>f  :NERDTreeFind<cr>
+
+" ----- tagbar ----- "
+" <F11>
+if v:version >= 703
+  inoremap <F11> <esc>:TagbarToggle<cr>
+  nnoremap <F11> :TagbarToggle<cr>
+  let g:tagbar_sort = 0
+endif
+
 
 " ----- vim-fzf ----- "
 
@@ -474,4 +490,40 @@ let g:airline_symbols.linenr = '¶'
 "endif
 
 
+" ----- UltiSnips ----- "
+function! g:UltiSnips_Complete()
+  call UltiSnips#ExpandSnippet()
+  if g:ulti_expand_res == 0
+    if pumvisible()
+      return "\<C-n>"
+    else
+      call UltiSnips#JumpForwards()
+      if g:ulti_jump_forwards_res == 0
+        return "\<TAB>"
+      endif
+    endif
+  endif
+  return ""
+endfunction
+
+function! g:UltiSnips_Reverse()
+  call UltiSnips#JumpBackwards()
+  if g:ulti_jump_backwards_res == 0
+    return "\<C-P>"
+  endif
+
+  return ""
+endfunction
+
+
+if !exists("g:UltiSnipsJumpForwardTrigger")
+  let g:UltiSnipsJumpForwardTrigger = "<tab>"
+endif
+
+if !exists("g:UltiSnipsJumpBackwardTrigger")
+  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+endif
+
+au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
 

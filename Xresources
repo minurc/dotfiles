@@ -2,19 +2,28 @@
 !
 ! URxvt.perl-lib: ~/.urxvt/lib/
 
-URxvt.perl-ext-common : default,selection-to-clipboard,keyboard-select
-! keyboard-select,url-select,clipboard
+!! Extensions:
+URxvt.perl-ext-common : default,keyboard-select,resize-font,url-select
 
+!! keyboard-select:
 URxvt.keysym.M-Escape        : perl:keyboard-select:activate
-! URxvt.keysym.M-x           : perl:keyboard-select:activate
-! URxvt.keysym.M-u           : perl:url-select:select_next
+!! url-select:
+URxvt.keysym.M-u           : perl:url-select:select_next
+URxvt.url-select.launcher  : google-chrome-stable
+! URxvt.url-select.launcher  : /usr/bin/i3-sensible-browser
+! URxvt.url-select.underline : true
+! URxvt.url-select.autocopy  : true
+!
+!! resize-fonts:
+URxvt.resize-font.smaller:      C-j
+URxvt.resize-font.bigger:       C-k
+
 ! URxvt.keysym.M-c           : perl:clipboard:copy
 ! URxvt.keysym.M-v           : perl:clipboard:paste
 ! URxvt.keysym.M-s           : perl:keyboard-select:search
 ! URxvt.keysym.M-C-v         : perl:clipboard:paste_escaped
-! URxvt.url-select.launcher  : firefox
-! URxvt.url-select.autocopy  : true
-! URxvt.url-select.underline : true
+
+
 
 URxvt*keysym.Home: \033[1~
 URxvt*keysym.End: \033[4~
@@ -26,10 +35,10 @@ URxvt*imLocale:           en_US.UTF-8
 
 
 ! x220
-! URxvt.font: xft:DejaVu Sans Mono for Powerline:size=11,xft:monospace,xft:Symbola,xft:FontAwesome:size=8
+URxvt.font: xft:DejaVu Sans Mono for Powerline:size=11,xft:monospace,xft:Symbola,xft:FontAwesome:size=8
 !
 ! hp eb 8570p
-URxvt.font: xft:DejaVu Sans Mono for Powerline:size=12,xft:monospace,xft:Symbola,xft:FontAwesome:size=8
+! URxvt.font: xft:DejaVu Sans Mono for Powerline:size=12,xft:monospace,xft:Symbola,xft:FontAwesome:size=8
 
 
   
@@ -60,7 +69,8 @@ Xft.antialias : true
 Xft.rgba      : rgb
 !  
 !Solarized + tangerine + random colours
-URxvt.cursorColor            : #93A1A1
+! URxvt.cursorColor            : #93A1A1
+URxvt.cursorColor            : magenta
 URxvt*cursorBlink:	true
 
 URxvt.pointerColorBackground : #586E75
@@ -135,4 +145,6 @@ URxvt.color15 : #ffffff
 !  URxvt*font:           xft:Inconsolata:size=10
 !  
 !
+
+xterm*utf8: 2
 
