@@ -15,8 +15,9 @@ URxvt.url-select.launcher  : google-chrome-stable
 ! URxvt.url-select.autocopy  : true
 !
 !! resize-fonts:
-URxvt.resize-font.smaller:      C-j
-URxvt.resize-font.bigger:       C-k
+!! Use default ones Ctrl+ Ctrl- and for reset Ctrl=
+! URxvt.resize-font.smaller:      C-j
+! URxvt.resize-font.bigger:       C-k
 
 ! URxvt.keysym.M-c           : perl:clipboard:copy
 ! URxvt.keysym.M-v           : perl:clipboard:paste
